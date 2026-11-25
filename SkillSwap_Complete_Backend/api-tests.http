@@ -1,0 +1,112 @@
+@baseUrl = http://localhost:8080
+@tokenA = REPLACE_WITH_STUDENT_A_JWT_TOKEN
+@tokenB = REPLACE_WITH_STUDENT_B_JWT_TOKEN
+@adminToken = REPLACE_WITH_ADMIN_JWT_TOKEN
+
+### 1. Register Student A
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Karthik Kumar",
+  "email": "karthik@skillswap.edu",
+  "password": "Password123",
+  "collegeName": "PSG Tech",
+  "department": "CSE",
+  "yearOfStudy": 3,
+  "bio": "Teaching Java, learning Python"
+}
+
+### 2. Register Student B
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Divya Nair",
+  "email": "divya@skillswap.edu",
+  "password": "Password123",
+  "collegeName": "PSG Tech",
+  "department": "IT",
+  "yearOfStudy": 3,
+  "bio": "Teaching Python, learning Java"
+}
+
+### 3. Login Student A
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "karthik@skillswap.edu",
+  "password": "Password123"
+}
+
+### 4. Get My Profile
+GET {{baseUrl}}/api/students/me
+Authorization: Bearer {{tokenA}}
+
+### 5. Update My Profile
+PUT {{baseUrl}}/api/students/me
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{
+  "fullName": "Karthik Kumar",
+  "collegeName": "PSG Tech",
+  "department": "CSE",
+  "yearOfStudy": 3,
+  "bio": "Backend Java & Spring Boot mentor"
+}
+
+### 6. Add Teaching & Learning Skills for Student A
+POST {{baseUrl}}/api/student-skills
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{
+  "skillName": "Java",
+  "category": "Programming",
+  "skillType": "TEACH",
+  "proficiencyLevel": "Advanced"
+}
+
+###
+POST {{baseUrl}}/api/student-skills
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{
+  "skillName": "Python",
+  "category": "Programming",
+  "skillType": "LEARN",
+  "proficiencyLevel": "Beginner"
+}
+
+### 7. Find Mutual Matches for Student A
+GET {{baseUrl}}/api/matches
+Authorization: Bearer {{tokenA}}
+
+### 8. Send Exchange Request from Student A to Student B
+POST {{baseUrl}}/api/requests
+Authorization: Bearer {{tokenA}}
+Content-Type: application/json
+
+{
+  "receiverId": 2,
+  "message": "Hi Divya, I can teach Java if you can teach me Python!"
+}
+
+### 9. Accept Exchange Request as Student B
+PATCH {{baseUrl}}/api/requests/1/accept
+Authorization: Bearer {{tokenB}}
+
+### 10. View Connections
+GET {{baseUrl}}/api/connections
+Authorization: Bearer {{tokenA}}
+
+### 11. View Notifications
+GET {{baseUrl}}/api/notifications
+Authorization: Bearer {{tokenA}}
+
+### 12. Admin Dashboard (Requires ADMIN role)
+GET {{baseUrl}}/api/admin/dashboard
+Authorization: Bearer {{adminToken}}
