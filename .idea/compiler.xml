@@ -6,13 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+<<<<<<< HEAD
         <module name="skillswap-backend" />
+=======
+        <module name="swap" />
+>>>>>>> ebd7d507c27892ebf7d96be5ea590b81292fb752
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+<<<<<<< HEAD
       <module name="skillswap-backend" options="-parameters" />
+=======
+      <module name="swap" options="-parameters" />
+>>>>>>> ebd7d507c27892ebf7d96be5ea590b81292fb752
     </option>
   </component>
 </project>
