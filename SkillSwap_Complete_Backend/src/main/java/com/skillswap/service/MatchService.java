@@ -111,9 +111,11 @@ public class MatchService {
         }
 
         if (filter != null && filter.getSkill() != null && !filter.getSkill().isBlank()) {
-            String querySkill = filter.getSkill().trim().toLowerCase();
-            boolean skillMatched = iTeachTheyLearn.stream().anyMatch(s -> s.toLowerCase().contains(querySkill))
-                    || theyTeachILearn.stream().anyMatch(s -> s.toLowerCase().contains(querySkill));
+            String querySkill = normalizeFilterValue(filter.getSkill());
+            boolean skillMatched = iTeachTheyLearn.stream()
+                    .anyMatch(skill -> normalizeFilterValue(skill).contains(querySkill))
+                    || theyTeachILearn.stream()
+                    .anyMatch(skill -> normalizeFilterValue(skill).contains(querySkill));
             if (!skillMatched) {
                 return Optional.empty();
             }
@@ -138,7 +140,7 @@ public class MatchService {
                 .map(StudentSkill::getSkill)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
-                        sk -> sk.getSkillName().trim().toLowerCase(),
+                        sk -> normalizeFilterValue(sk.getSkillName()),
                         sk -> sk.getSkillName(),
                         (first, second) -> first
                 ));
@@ -148,18 +150,20 @@ public class MatchService {
         if (filter == null) {
             return true;
         }
-        if (filter.getCollege() != null && !filter.getCollege().isBlank()) {
-            if (candidate.getCollegeName() == null ||
-                    !candidate.getCollegeName().toLowerCase().contains(filter.getCollege().trim().toLowerCase())) {
-                return false;
-            }
+        String collegeFilter = normalizeFilterValue(filter.getCollege());
+        if (!collegeFilter.isEmpty()
+                && !normalizeFilterValue(candidate.getCollegeName()).contains(collegeFilter)) {
+            return false;
         }
-        if (filter.getDepartment() != null && !filter.getDepartment().isBlank()) {
-            if (candidate.getDepartment() == null ||
-                    !candidate.getDepartment().toLowerCase().contains(filter.getDepartment().trim().toLowerCase())) {
-                return false;
-            }
+        String departmentFilter = normalizeFilterValue(filter.getDepartment());
+        if (!departmentFilter.isEmpty()
+                && !normalizeFilterValue(candidate.getDepartment()).contains(departmentFilter)) {
+            return false;
         }
         return true;
+    }
+
+    private String normalizeFilterValue(String value) {
+        return value == null ? "" : value.trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
     }
 }

@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="MavenProjectsManager">
-    <option name="originalFiles">
-      <list>
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/SkillSwap_Complete_Backend/pom.xml" />
-=======
-        <option value="$PROJECT_DIR$/swap/pom.xml" />
->>>>>>> ebd7d507c27892ebf7d96be5ea590b81292fb752
-      </list>
-    </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_26" default="true" project-jdk-name="26" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+    <component name="ExternalStorageConfigurationManager" enabled="true" />
+
+    <component name="MavenProjectsManager">
+        <option name="originalFiles">
+            <list>
+                <option value="$PROJECT_DIR$/SkillSwap_Complete_Backend/pom.xml" />
+            </list>
+        </option>
+    </component>
+
+    <component name="ProjectRootManager"
+               version="2"
+               languageLevel="JDK_17"
+               default="true"
+               project-jdk-name="17"
+               project-jdk-type="JavaSDK">
+        <output url="file://$PROJECT_DIR$/out" />
+    </component>
 </project>
